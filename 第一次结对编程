@@ -1,0 +1,102 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+using namespace std;
+int main()
+{
+    printf("欢迎使用论文检索系统");
+    printf("\n");
+    printf("请选择\n");
+    printf("1:进入\n");
+    printf("0:退出\n");
+    int a;
+    cin>>a;
+    if(a==1)
+   {
+    printf("欢迎使用!\n");
+    char key[50];                         //定义关键字变量
+    printf("\n\n");
+    printf("请输入关键字:\n");
+    cin>>key;                             //输入关键字
+    int len;
+    len=strlen(key);
+    FILE *fp;
+    char ch;
+    char file_head[100000]="E:\\lw\\";
+    char filename[100];
+    const int filecount=90;
+    int count;
+    int k=1;
+    int temp=0;
+    int flag;
+    int flag2=0;
+    printf("\n");
+    for(count=1;count<=filecount;count++)
+    {
+
+        sprintf(filename,"%s%d.txt",file_head,count);
+        fp=fopen(filename,"r");                         //打开文件
+        if(fp==NULL)
+        {
+
+            printf("cannot open the text\n");
+            exit(0);
+        }
+        char str[10000];
+        int i=0;
+        while(!(feof(fp)))                              //读取论文
+        {
+
+            ch=fgetc(fp);
+            str[i]=ch;
+            i++;
+        }
+        flag=0;
+        char *p;
+        p=str;
+        int len2;
+        len2=strlen(str);
+        int j;
+        for(j=0;j<len2;j++)
+        {
+
+          if(strncmp(p,key,len)==0)                      //判断是否含有关键字
+          {
+
+             flag=1;
+             temp=1;
+             flag2++;
+             break;
+          }
+          p++;
+        }
+        if(flag==1&&flag2==1)
+        {
+
+            printf("含有该关键字的论文为");
+            printf("\n");
+            printf("%d ",k);                              //输出编号
+        }
+        if(flag==1&&flag2!=1)
+        {
+            printf("%d ",k);                              //输出编号
+        }
+        k++;
+        fclose(fp);
+    }
+    if(temp==0)
+    {
+        printf("没有查找到关键字");
+    }
+    printf("\n\n");
+    printf("请按任意键结束。。。。。。");
+    return 0;
+   }
+    if(a==0)
+    {
+      return 0;
+    }
+
+}
